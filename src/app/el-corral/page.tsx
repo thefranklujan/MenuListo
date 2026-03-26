@@ -97,14 +97,8 @@ export default function ElCorralMenu() {
         </div>
       </div>
 
-      {/* Decorative food border from their site */}
-      <div className="w-full h-8 overflow-hidden" style={{ backgroundColor: BRAND.cream }}>
-        <img
-          src="/el-corral-border.png"
-          alt=""
-          className="w-full h-full object-cover opacity-60"
-        />
-      </div>
+      {/* Decorative green accent divider */}
+      <div className="w-full h-1.5" style={{ backgroundColor: BRAND.green }} />
 
       {/* Sticky Category Nav */}
       <nav className="sticky top-0 z-30 border-b shadow-sm" style={{ backgroundColor: "rgba(255,248,231,0.97)", borderColor: "#E5D5B5" }}>
