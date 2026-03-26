@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, forwardRef } from "react";
 import { elCorralRestaurant } from "@/lib/el-corral-data";
 import { type MenuCategory, type MenuItem } from "@/lib/demo-data";
-import { Phone, MapPin, Clock, MessageCircle, ChevronUp, Flame, Star, X, ChevronRight, AtSign } from "lucide-react";
+import { Phone, MapPin, MessageCircle, ChevronUp, Flame, Star, X, ChevronRight, AtSign } from "lucide-react";
 
 const BRAND = {
   red: "#D42426",
@@ -12,6 +12,7 @@ const BRAND = {
   greenDark: "#166534",
   cream: "#FFF8E7",
   brown: "#5C3D2E",
+  gold: "#FFD700",
 };
 
 export default function ElCorralMenu() {
@@ -43,56 +44,45 @@ export default function ElCorralMenu() {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: BRAND.cream }}>
-      {/* Hero with El Corral branding */}
-      <div className="relative text-white" style={{ background: `linear-gradient(135deg, ${BRAND.red} 0%, ${BRAND.redDark} 100%)` }}>
-        {/* Decorative top border */}
-        <div className="h-2" style={{ backgroundColor: BRAND.green }} />
+      {/* Top green bar */}
+      <div className="h-2" style={{ backgroundColor: BRAND.green }} />
 
-        <div className="relative px-5 pt-6 pb-8">
-          {/* Logo / Brand Name */}
-          <div className="flex justify-center mb-4">
-            <div className="text-center">
-              <div className="relative inline-block">
-                <h1 className="text-4xl font-black tracking-tight" style={{ fontFamily: "'Playfair Display', serif", textShadow: "2px 2px 4px rgba(0,0,0,0.3)" }}>
-                  <span style={{ color: "#FFFFFF" }}>EL </span>
-                  <span style={{ color: "#FFD700" }}>C</span>
-                  <span style={{ color: "#FFFFFF" }}>ORRAL</span>
-                </h1>
-                <p className="text-sm font-bold tracking-widest mt-1" style={{ color: BRAND.green, textShadow: "1px 1px 2px rgba(0,0,0,0.3)" }}>
-                  Mexican Grill & Bar
-                </p>
-              </div>
-            </div>
+      {/* Hero header with red background */}
+      <div className="relative text-white" style={{ backgroundColor: BRAND.red }}>
+        <div className="relative px-5 pt-5 pb-4">
+          {/* Actual Logo */}
+          <div className="flex justify-center mb-3">
+            <img
+              src="/el-corral-logo.png"
+              alt="El Corral Mexican Grill & Bar"
+              className="h-20 object-contain drop-shadow-lg"
+            />
           </div>
 
-          {/* Info */}
-          <div className="flex flex-col gap-2 text-xs text-white/90">
+          {/* Contact info row */}
+          <div className="flex flex-col gap-1.5 text-xs text-white/90">
             <a href={`tel:${r.phone}`} className="flex items-center gap-2 hover:text-white transition-colors">
-              <Phone className="w-3.5 h-3.5" style={{ color: BRAND.green }} />
+              <Phone className="w-3 h-3 text-white/70" />
               {r.phone}
             </a>
             <div className="flex items-center gap-2">
-              <MapPin className="w-3.5 h-3.5 shrink-0" style={{ color: BRAND.green }} />
+              <MapPin className="w-3 h-3 text-white/70 shrink-0" />
               <span>{r.address}</span>
             </div>
-            <a
-              href="https://www.instagram.com/ElCorralHTX"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 hover:text-white transition-colors"
-            >
-              <AtSign className="w-3.5 h-3.5" style={{ color: BRAND.green }} />
+            <a href="https://www.instagram.com/ElCorralHTX" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-white transition-colors">
+              <AtSign className="w-3 h-3 text-white/70" />
               @ElCorralHTX
             </a>
           </div>
 
-          {/* WhatsApp / Call buttons */}
-          <div className="mt-5 flex gap-2">
+          {/* Action buttons */}
+          <div className="mt-4 flex gap-2">
             <a
               href={`https://wa.me/${r.whatsapp}?text=Hola!%20Quisiera%20hacer%20un%20pedido`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 flex items-center justify-center gap-2 bg-[#25D366] hover:bg-green-500 text-white font-semibold py-3 rounded-xl transition-colors text-sm"
+              className="flex-1 flex items-center justify-center gap-2 text-white font-semibold py-3 rounded-xl transition-colors text-sm"
+              style={{ backgroundColor: BRAND.green }}
             >
               <MessageCircle className="w-4 h-4" />
               Ordenar por WhatsApp
@@ -105,9 +95,15 @@ export default function ElCorralMenu() {
             </a>
           </div>
         </div>
+      </div>
 
-        {/* Green bottom accent */}
-        <div className="h-1" style={{ backgroundColor: BRAND.green }} />
+      {/* Decorative food border from their site */}
+      <div className="w-full h-8 overflow-hidden" style={{ backgroundColor: BRAND.cream }}>
+        <img
+          src="/el-corral-border.png"
+          alt=""
+          className="w-full h-full object-cover opacity-60"
+        />
       </div>
 
       {/* Sticky Category Nav */}
@@ -155,7 +151,7 @@ export default function ElCorralMenu() {
         </button>
       )}
 
-      {/* Powered by */}
+      {/* Powered by footer */}
       <footer className="fixed bottom-0 inset-x-0 py-2 text-center z-20 border-t" style={{ backgroundColor: "rgba(255,248,231,0.92)", borderColor: "#E5D5B5" }}>
         <p className="text-[10px]" style={{ color: BRAND.brown }}>
           Menú digital por <span className="font-semibold" style={{ color: BRAND.red }}>MenuListo</span>
@@ -178,10 +174,11 @@ export default function ElCorralMenu() {
 const CategorySection = forwardRef<HTMLDivElement, { category: MenuCategory; onItemClick: (item: MenuItem) => void; brand: typeof BRAND }>(
   function CategorySection({ category, onItemClick, brand }, ref) {
     return (
-      <div ref={ref} className="mb-8 scroll-mt-16">
+      <div ref={ref} className="mb-8 scroll-mt-14">
+        {/* Category header styled like their menu */}
         <div className="flex items-center gap-2 mb-4">
           <span className="text-xl">{category.icon}</span>
-          <h2 className="text-lg font-bold" style={{ color: brand.brown }}>{category.name}</h2>
+          <h2 className="text-lg font-extrabold italic" style={{ color: brand.green }}>{category.name}</h2>
           <div className="flex-1 h-px ml-2" style={{ backgroundColor: "#E5D5B5" }} />
         </div>
         <div className="space-y-3">
@@ -208,7 +205,7 @@ function MenuItemCard({ item, brand, onClick }: { item: MenuItem; brand: typeof 
         <div className="flex-1 min-w-0 p-3 flex flex-col justify-between">
           <div>
             <div className="flex items-center gap-1.5">
-              <h3 className="font-semibold text-sm truncate" style={{ color: brand.brown }}>{item.name}</h3>
+              <h3 className="font-bold text-sm truncate" style={{ color: brand.brown }}>{item.name}</h3>
               {item.popular && (
                 <span className="shrink-0 flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-medium rounded-full" style={{ backgroundColor: "#FEF3C7", color: "#D97706" }}>
                   <Star className="w-2.5 h-2.5 fill-current" />
@@ -241,19 +238,19 @@ function ItemDetailModal({ item, whatsapp, brand, onClose }: { item: MenuItem; w
         {/* Image */}
         <div className="relative w-full h-64 shrink-0">
           <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
 
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 w-8 h-8 rounded-full bg-black/40 backdrop-blur-sm text-white flex items-center justify-center hover:bg-black/60 transition-colors"
-          >
+          {/* Close */}
+          <button onClick={onClose} className="absolute top-4 right-4 w-8 h-8 rounded-full bg-black/40 backdrop-blur-sm text-white flex items-center justify-center hover:bg-black/60 transition-colors">
             <X className="w-4 h-4" />
           </button>
 
+          {/* Price */}
           <div className="absolute bottom-4 right-4 text-white font-bold text-lg px-4 py-2 rounded-xl shadow-lg" style={{ backgroundColor: brand.green }}>
             ${item.price.toFixed(2)}
           </div>
 
+          {/* Badges */}
           <div className="absolute bottom-4 left-4 flex gap-2">
             {item.popular && (
               <span className="flex items-center gap-1 px-2.5 py-1 bg-amber-500 text-white text-xs font-medium rounded-full">
@@ -268,11 +265,16 @@ function ItemDetailModal({ item, whatsapp, brand, onClose }: { item: MenuItem; w
               </span>
             )}
           </div>
+
+          {/* Mini logo watermark */}
+          <div className="absolute top-4 left-4">
+            <img src="/el-corral-logo.png" alt="" className="h-8 opacity-80 drop-shadow-lg" />
+          </div>
         </div>
 
         {/* Content */}
-        <div className="p-5 overflow-y-auto">
-          <h2 className="font-bold text-2xl" style={{ color: brand.brown }}>{item.name}</h2>
+        <div className="p-5 overflow-y-auto" style={{ backgroundColor: brand.cream }}>
+          <h2 className="font-extrabold text-2xl" style={{ color: brand.brown }}>{item.name}</h2>
           <p className="mt-3 text-sm leading-relaxed" style={{ color: "#7C6F60" }}>
             {item.details || item.description}
           </p>
@@ -282,13 +284,23 @@ function ItemDetailModal({ item, whatsapp, brand, onClose }: { item: MenuItem; w
               href={`https://wa.me/${whatsapp}?text=Hola!%20Quisiera%20ordenar%20${encodeURIComponent(item.name)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-5 flex items-center justify-center gap-2 w-full text-white font-semibold py-3.5 rounded-xl transition-colors text-sm"
+              className="mt-5 flex items-center justify-center gap-2 w-full text-white font-semibold py-3.5 rounded-xl transition-colors text-sm shadow-md"
               style={{ backgroundColor: brand.green }}
             >
               <MessageCircle className="w-4 h-4" />
               Ordenar {item.name}
             </a>
           )}
+
+          {/* Call to order */}
+          <a
+            href={`tel:${elCorralRestaurant.phone}`}
+            className="mt-2 flex items-center justify-center gap-2 w-full font-semibold py-3 rounded-xl transition-colors text-sm border"
+            style={{ color: brand.red, borderColor: brand.red }}
+          >
+            <Phone className="w-4 h-4" />
+            Llamar para ordenar
+          </a>
         </div>
       </div>
 
