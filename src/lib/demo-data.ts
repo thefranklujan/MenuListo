@@ -215,7 +215,7 @@ export const demoRestaurant: Restaurant = {
           description: "Café tradicional con piloncillo y canela",
           details: "Café preparado al estilo tradicional mexicano en olla de barro con piloncillo y canela. Caliente y reconfortante.",
           price: 3.00,
-          image: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefda?w=800&q=80",
+          image: "https://images.unsplash.com/photo-1610889556528-9a770e32642f?w=800&q=80",
         },
       ],
     },
